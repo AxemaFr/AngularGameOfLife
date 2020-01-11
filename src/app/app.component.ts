@@ -1,5 +1,6 @@
-import {Component, ViewChild} from '@angular/core';
-import {GridComponent} from './grid/grid.component';
+import { Component, ViewChild } from '@angular/core';
+import { GridComponent } from './grid/grid.component';
+import { Locale } from './classes/locale';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,16 @@ import {GridComponent} from './grid/grid.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'AngularGameOfLife';
+  localization = Locale.fields.en;
+  title = this.localization.pageTitle;
 
   @ViewChild(GridComponent, {static: false}) grid: GridComponent;
   intervalId;
   started: boolean = false;
   tableSize: number = 20;
   speed: number = 200;
+  // false = end, true = rus
+  local: boolean = false;
 
   onIterateClick(event) {
     this.grid.iterate();
