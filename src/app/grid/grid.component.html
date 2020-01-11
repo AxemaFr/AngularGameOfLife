@@ -1,8 +1,8 @@
 <table class="grid">
   <tr *ngFor="let row of rowsIterable; index as i" class="row">
-    <td *ngFor="let cell of table[row]; index as j"
+    <td *ngFor="let cell of getRow(i); index as j"
         class="cell"
-        [class.isAlive]="table[i][j].isAlive"
+        [class.isAlive]="cell.isAlive"
         (click)="onCellClick(i, j)"></td>
   </tr>
 </table>

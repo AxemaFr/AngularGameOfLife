@@ -7,17 +7,16 @@ import {Cell} from '../classes/cell';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit, AfterViewInit {
-  tableSize: Number = 10;
+  tableSize: number = 8;
 
+  cellsFlat: Array<Cell> = [];
   rowsIterable: Array<number> = [];
-  table: Object = Array(this.tableSize).fill(0).map(x => Array(this.tableSize).fill(0));
-
 
   constructor() {
     for (let i = 0; i < this.tableSize; i++) {
       this.rowsIterable.push(i);
       for (let j = 0; j < this.tableSize; j++) {
-        this.table[i][j] = new Cell(i, j);
+        this.cellsFlat[this.flatMask(i, j)] = new Cell(i, j);
       }
     }
   }
@@ -26,14 +25,21 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.table);
   }
 
   onCellClick(i: number, j: number) {
-
+    this.cellsFlat[this.flatMask(i, j)].toggle();
   }
 
-  isCellAlive(i: number, j: number) {
-    this.table[i][j].
+  flatMask(i: number, j: number) {
+    return i * this.tableSize + j;
+  }
+
+  getRow(row: number): Array<Cell> {
+    let result: Array<Cell> = [];
+    for (let i = 0; i < this.tableSize; i++) {
+      result.push(this.cellsFlat[this.flatMask(row, i)]);
+    }
+    return result;
   }
 }
