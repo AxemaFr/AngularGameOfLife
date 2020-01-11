@@ -8,13 +8,13 @@ import { Locale } from './classes/locale';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  localization = Locale.fields.en;
-  title = this.localization.pageTitle;
+  title = 'AngularGameOfLife';
+  localization = Locale.getLocalizations();
 
   @ViewChild(GridComponent, {static: false}) grid: GridComponent;
   intervalId;
   started: boolean = false;
-  tableSize: number = 20;
+  tableSize: number = 40;
   speed: number = 200;
   // false = end, true = rus
   local: boolean = false;
@@ -34,6 +34,7 @@ export class AppComponent {
   }
 
   clearGrid($event: MouseEvent) {
+    console.log(this.localization);
     this.grid.clear();
   }
 }
