@@ -3,7 +3,9 @@
     <h1 class="text-center">AxemaFr's Game of Life</h1>
   </div>
 </header>
-<div></div>
-<app-grid>
-
-</app-grid>
+<div class="buttons-container">
+  <button (click)="onIterateClick($event)">Iterate</button>
+  <button (click)="onStartStopClick($event)">{{started ? 'Stop' : 'Start'}}</button>
+  <button (click)="clearGrid($event)">Clear</button>
+</div>
+<app-grid [tableSize]="tableSize"></app-grid>
