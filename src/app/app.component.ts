@@ -14,9 +14,9 @@ export class AppComponent {
   @ViewChild(GridComponent, {static: false}) grid: GridComponent;
   intervalId;
   started: boolean = false;
-  gridSize: number = 20;
-  speed: number = 200;
-  // false = end, true = rus
+  gridSize: number = 40;
+  speed: number = 150;
+  // false = eng, true = rus
   local: boolean = false;
 
   onIterateClick(event) {
@@ -34,7 +34,6 @@ export class AppComponent {
   }
 
   clearGrid($event: MouseEvent) {
-    console.log(this.localization);
     this.grid.clear();
   }
 
