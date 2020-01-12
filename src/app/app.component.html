@@ -7,5 +7,11 @@
   <button (click)="onIterateClick($event)">Iterate</button>
   <button (click)="onStartStopClick($event)">{{started ? 'Stop' : 'Start'}}</button>
   <button (click)="clearGrid($event)">Clear</button>
+  <button (click)="randomize($event)">Randomize</button>
+  <div class="stepper-container">
+    <div class="stepper-button" (click)="onMinusClick()"> - </div>
+    <div class="stepper-body">{{gridSize}}</div>
+    <div class="stepper-button" (click)="onPlusClick()"> + </div>
+  </div>
 </div>
-<app-grid [tableSize]="tableSize"></app-grid>
+<app-grid [gridSize]="gridSize"></app-grid>

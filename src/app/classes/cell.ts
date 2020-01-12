@@ -13,8 +13,7 @@ export class Cell {
     this.isAlive = !this.isAlive;
   }
 
-  alive() {
-    return true;
+  randomizeState() {
+    this.isAlive = Math.floor(Math.random() * Math.floor(3)) === 1;
   }
-
 }

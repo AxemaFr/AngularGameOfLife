@@ -13,8 +13,8 @@
   button:not(:last-child) {
   margin-right: 20px;
 }
-  button {
-    border:solid 2px #c8c8c8;
+  button, .stepper-container .stepper-button, .stepper-container .stepper-body {
+    border: solid 2px #c8c8c8;
     background: #272b30;
     color: #c8c8c8;
     cursor: pointer;
@@ -26,5 +26,14 @@
     text-transform: uppercase;
     font-family: 'Montserrat', sans-serif; font-weight:400;
     letter-spacing: 2px;
+  }
+}
+
+.stepper-container {
+  margin-left: 35px;
+  display: inline-block;
+  .stepper-button, .stepper-body {
+    margin-left: 5px;
+    display:inline-block;
   }
 }

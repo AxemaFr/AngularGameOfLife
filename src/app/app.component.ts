@@ -14,7 +14,7 @@ export class AppComponent {
   @ViewChild(GridComponent, {static: false}) grid: GridComponent;
   intervalId;
   started: boolean = false;
-  tableSize: number = 40;
+  gridSize: number = 20;
   speed: number = 200;
   // false = end, true = rus
   local: boolean = false;
@@ -36,5 +36,21 @@ export class AppComponent {
   clearGrid($event: MouseEvent) {
     console.log(this.localization);
     this.grid.clear();
+  }
+
+  randomize($event: MouseEvent) {
+    this.grid.randomize();
+  }
+
+  onMinusClick() {
+    if (this.gridSize > 8) {
+      this.gridSize--;
+    }
+  }
+
+  onPlusClick() {
+    if (this.gridSize < 25) {
+      this.gridSize++;
+    }
   }
 }
