@@ -19,7 +19,7 @@ export class AppComponent {
   // false = eng, true = rus
   local: boolean = false;
 
-  onIterateClick() {
+  onIterateClick($event) {
     this.grid.iterate();
   }
 
