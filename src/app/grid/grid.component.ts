@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Host, HostListener, Input, OnChanges, OnInit} from '@angular/core';
 import {Cell} from '../classes/cell';
 import {SimpleChanges} from '@angular/core';
 
@@ -12,33 +12,17 @@ export class GridComponent implements OnInit, AfterViewInit, OnChanges {
 
   cellsFlat: Array<Cell> = [];
   rowsIterable: Array<number> = [];
+  paintMode: boolean = false;
+
   constructor() {
   }
 
   ngOnInit() {
-    for (let i = 0; i < this.gridSize; i++) {
-      this.rowsIterable.push(i);
-      for (let j = 0; j < this.gridSize; j++) {
-        this.cellsFlat[this.flatMask(i, j)] = new Cell(i, j);
-      }
-    }
-    console.log(this.rowsIterable);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.gridSize) {
-      let difference = changes.gridSize.currentValue - changes.gridSize.previousValue;
-      if (difference > 0) {
-        for (let i = 0; i < changes.gridSize.previousValue; i++) {
-          this.cellsFlat.push(new Cell(i, changes.gridSize.currentValue));
-        }
-        for (let i = 0; i < changes.gridSize.currentValue; i++) {
-          this.cellsFlat.push(new Cell(changes.gridSize.currentValue, i));
-        }
-        this.rowsIterable.push(this.rowsIterable.length + 1);
-      } else {
-        this.rowsIterable = this.rowsIterable.slice(0, this.rowsIterable.length - 1);
-      }
+      this.refreshGrid();
     }
   }
 
@@ -47,6 +31,18 @@ export class GridComponent implements OnInit, AfterViewInit, OnChanges {
 
   onCellClick(i: number, j: number) {
     this.cellsFlat[this.flatMask(i, j)].toggle();
+  }
+
+  refreshGrid() {
+    this.rowsIterable = [];
+    this.cellsFlat = [];
+
+    for (let i = 0; i < this.gridSize; i++) {
+      this.rowsIterable.push(i);
+      for (let j = 0; j < this.gridSize; j++) {
+        this.cellsFlat[this.flatMask(i, j)] = new Cell(i, j);
+      }
+    }
   }
 
   flatMask(row: number, col: number) {
@@ -121,9 +117,31 @@ export class GridComponent implements OnInit, AfterViewInit, OnChanges {
 
   randomize() {
     for (let i = 0; i < this.gridSize; i++) {
-      for ( let j = 0; j < this.gridSize; j++) {
+      for (let j = 0; j < this.gridSize; j++) {
         this.cellsFlat[this.flatMask(i, j)].randomizeState();
       }
     }
   }
+
+  @HostListener('document:mousedown', ['$event'])
+  handleKeydownEvent(event: MouseEvent) {
+    this.paintMode = true;
+  }
+
+  @HostListener('document:mouseup', ['$event'])
+  handleKeyupEvent(event: MouseEvent) {
+    this.paintMode = false;
+  }
+
+  onGridMouseMove($event: MouseEvent) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    if (this.paintMode) {
+      const target: any = $event.target;
+      if (!this.cellsFlat[target.dataset.celluid].isAlive) {
+        this.cellsFlat[target.dataset.celluid].toggle();
+      }
+    }
+  }
+
 }

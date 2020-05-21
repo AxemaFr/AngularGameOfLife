@@ -19,7 +19,7 @@ export class AppComponent {
   // false = eng, true = rus
   local: boolean = false;
 
-  onIterateClick(event) {
+  onIterateClick() {
     this.grid.iterate();
   }
 
@@ -48,7 +48,7 @@ export class AppComponent {
   }
 
   onPlusClick() {
-    if (this.gridSize < 25) {
+    if (this.gridSize < 50) {
       this.gridSize++;
     }
   }

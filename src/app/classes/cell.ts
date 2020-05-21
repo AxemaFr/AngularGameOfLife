@@ -1,5 +1,5 @@
 export class Cell {
-  public isAlive: boolean;
+  public isAlive: boolean = false;
   x: number;
   y: number;
 

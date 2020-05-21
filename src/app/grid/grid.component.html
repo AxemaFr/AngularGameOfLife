@@ -1,7 +1,7 @@
-<table class="grid">
+<table class="grid" (mousemove)="onGridMouseMove($event)">
   <tr *ngFor="let row of rowsIterable; index as i" class="row">
     <td *ngFor="let cell of getRow(i); index as j"
-        class="cell"
+        class="cell" [attr.data-celluid]="i * gridSize + j"
         [class.isAlive]="cell.isAlive"
         (click)="onCellClick(i, j)"></td>
   </tr>
